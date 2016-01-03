@@ -57,7 +57,7 @@ namespace Transformation
         /// <param name="input">입력한 로그 값</param>
         /// <param name="min">입력한 로그 값이 속한 범위의 최소값</param>
         /// <param name="max">입력한 로그 값이 속한 범위의 최대값</param>
-        /// <param name="isPreviousNumberNegative">입력한 로그 값이 된 숫자가 음수인지의 여부</param>
+        /// <param name="isPreviousNumberNegative">입력한 로그 값으로 바꾼 숫자가 음수인지의 여부</param>
         /// <param name="logType">입력한 로그 값의 로그 종류</param>
         /// <returns></returns>
         public float LogToNum(float input, float min, float max, bool isPreviousNumberNegative, LogType logType = LogType.CommonLog)
