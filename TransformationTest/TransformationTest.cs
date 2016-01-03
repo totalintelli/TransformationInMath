@@ -43,7 +43,7 @@ namespace TransformationTest
 
 
         [TestMethod]
-        public void WhenMinusNumber_ShouldReturnMinusNumber()
+        public void WhenNegativeNumber_ShouldReturnMinusNumber()
         {
             LogTransformation logTrans = new LogTransformation();
             float expectedResult = -1;
@@ -99,7 +99,7 @@ namespace TransformationTest
 
 
         [TestMethod]
-        public void WhenMinusLogValue_ShouldReturnMinusValue()
+        public void WhenNegativeLogValue_ShouldReturnMinusValue()
         {
             LogTransformation logTrans = new LogTransformation();
             float expectedResult = -10;
