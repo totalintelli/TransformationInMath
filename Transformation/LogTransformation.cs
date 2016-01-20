@@ -226,6 +226,32 @@ namespace Transformation
                
             }
 
+            if(Min < 0 && Max > 0)
+            {
+                if(isX)
+                {
+                    Rate_Log = Math.Ceiling(Math.Log(Math.Abs(Max), LogBase)) 
+                        + Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
+                    Data_Log = Math.Log(Math.Abs(Data), LogBase) + Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
+
+                    if(Data > 0 && Data < Max)
+                    {
+                        Pos = GraphZeroPoint.X + GraphWidth * ((Data_Log + 1) / (Rate_Log + 1));
+                    }
+
+                    else if (Data == Min)
+                    {
+                        Pos = GraphZeroPoint.X;
+                    }
+
+                    else if (Math.Log(Math.Abs(Data), LogBase) == Math.Ceiling(Math.Log(Math.Abs(Max), LogBase)))
+                    {
+                        Pos = GraphZeroPoint.X + GraphWidth;
+                    }
+                }
+               
+            }
+
             return Pos;
         }
 
