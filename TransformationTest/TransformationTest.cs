@@ -244,7 +244,7 @@ namespace TransformationTest
             float Min = 0;
             float Max = 0;
             float Data = 0;
-            int expectedResult = 0;
+            double expectedResult = 0;
             double actualResult = 0;
 
             Min = -100;
@@ -272,6 +272,34 @@ namespace TransformationTest
             Max = -5;
             Data = -1;
             expectedResult = 429;
+            actualResult = logTrans.ValueToLogGraph(true, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            Min = -1000;
+            Max = 2990;
+            Data = 1000;
+            expectedResult = 385.375;
+            actualResult = logTrans.ValueToLogGraph(true, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            Min = -1000;
+            Max = 2990;
+            Data = -1000;
+            expectedResult = 80;
+            actualResult = logTrans.ValueToLogGraph(true, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            Min = -1000;
+            Max = 2990;
+            Data = 10000;
+            expectedResult = 429;
+            actualResult = logTrans.ValueToLogGraph(true, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            Min = -1000;
+            Max = 2990;
+            Data = 1;
+            expectedResult = 254.5;
             actualResult = logTrans.ValueToLogGraph(true, Data, Min, Max);
             Assert.AreEqual(expectedResult, actualResult);
         }
