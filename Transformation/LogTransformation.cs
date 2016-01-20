@@ -199,7 +199,11 @@ namespace Transformation
             {
                 if(isX)
                 {
-
+                    if(Data > Max)
+                    {
+                        Pos = GraphZeroPoint.X + GraphWidth;
+                    }
+                    
                 }
                 else
                 {
@@ -227,7 +231,7 @@ namespace Transformation
 
         public int GetCount(double Min, double Max)
         {
-            int count = 0; // 눈금의 개수
+            int Count = 0; // 눈금의 개수
             double MinLogVal = 0; // 최소값의 로그값
             double MaxLogVal = 0; // 최대값의 로그값
             double LogBase = 10;
@@ -247,7 +251,7 @@ namespace Transformation
                 }
 
                 // 눈금의 개수를 구한다.
-                count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
+                Count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
 
             }
 
@@ -265,12 +269,12 @@ namespace Transformation
                 if(Max > 1)
                 {
                     // 눈금의 개수를 구한다.
-                    count = Convert.ToInt16(MaxLogVal - MinLogVal) + 2;
+                    Count = Convert.ToInt16(MaxLogVal - MinLogVal) + 2;
                 }
                 else
                 {
                     // 눈금의 개수를 구한다.
-                    count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
+                    Count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
                 }
             }
 
@@ -283,10 +287,22 @@ namespace Transformation
                 MinLogVal = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
 
                 // 눈금의 개수를 구한다.
-                count = Convert.ToInt16(MinLogVal - MaxLogVal) + 1;
+                Count = Convert.ToInt16(MinLogVal - MaxLogVal) + 1;
             }
 
-            return count;
+            else if ( Min < 0 && Max > 0)
+            {
+                // 최대값의 로그값을 구한다.
+                MaxLogVal = Math.Ceiling(Math.Log(Math.Abs(Max), LogBase));
+
+                // 최소값의 로그값을 구한다. 
+                MinLogVal = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
+
+                // 눈금의 개수를 구한다.
+                Count = Convert.ToInt16(MinLogVal + MaxLogVal) + 2;
+            }
+
+            return Count;
         }
     }
 }
