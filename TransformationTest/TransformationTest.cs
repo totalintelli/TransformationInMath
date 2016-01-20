@@ -24,6 +24,20 @@ namespace TransformationTest
             max = 1779;
             actualResult = logTrans.NumToLog(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
+
+            expectedResult = 3.475671f;
+            input = 2990;
+            min = 2990;
+            max = 2990;
+            actualResult = logTrans.NumToLog(input, min, max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
+
+            expectedResult = 3.601517f;
+            input = 3995;
+            min = 3995;
+            max = 3995;
+            actualResult = logTrans.NumToLog(input, min, max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
         }
 
 
@@ -51,6 +65,13 @@ namespace TransformationTest
             float min = -1235;
             float max = -5;
             float actualResult = logTrans.NumToLog(input, min, max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            expectedResult = -3;
+            input = -1000;
+            min = -1000;
+            max = -1000;
+            actualResult = logTrans.NumToLog(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
         }
 
@@ -129,6 +150,176 @@ namespace TransformationTest
             actualResult = logTrans.LogToNum(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
 
+        }
+
+        [TestMethod]
+        public void WhenPositiveValue_ShouldReturnPositivePointValue()
+        {
+            LogTransformation logTrans = new LogTransformation();
+            double expectedResult = 242;
+            float Value = 1;
+            float Min = 0;
+            float Max = 154;
+            bool isX = false;
+            double actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            expectedResult = 264.5;
+            Value = 10;
+            Min = 0;
+            Max = 43.78f;
+            isX = true;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            expectedResult = 429;
+            Value = 100;
+            Min = 0;
+            Max = 43.78f;
+            isX = true;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            expectedResult = 100;
+            Value = 1;
+            Min = 0;
+            Max = 43.78f;
+            isX = true;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            expectedResult = 80;
+            Value = 0;
+            Min = 0;
+            Max = 43.78f;
+            isX = true;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            expectedResult = 82;
+            Value = 0.1f;
+            Min = 0;
+            Max = 43.78f;
+            isX = true;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
+
+            Value = 0.044f;
+            Min = 0;
+            Max = 43.78f;
+            isX = true;
+            expectedResult = 80.88f;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
+
+            Value = 10;
+            Min = 0;
+            Max = 154;
+            isX = false;
+            expectedResult = 188;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
+
+            Value = 0.2677702f;
+            Min = 0.01099479f;
+            Max = 1.095801f;
+            isX = false;
+            expectedResult = 256.644596;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
+
+            Min = 0.01000768f;
+            Max = 1.096188f;
+            Value = 10;
+            isX = false;
+            expectedResult = 80;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
+        }
+
+        [TestMethod]
+        public void WhenNegativeValue_ShouldReturnPositivePointValue()
+        {
+            LogTransformation logTrans = new LogTransformation();
+            float Min = 0;
+            float Max = 0;
+            float Data = 0;
+            int expectedResult = 0;
+            double actualResult = 0;
+
+            Min = -100;
+            Max = -2;
+            Data = -100;
+            expectedResult = 262;
+            actualResult = logTrans.ValueToLogGraph(false, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            Min = -100;
+            Max = -2;
+            Data = -10;
+            expectedResult = 171;
+            actualResult = logTrans.ValueToLogGraph(false, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            Min = -100;
+            Max = -2;
+            Data = -1;
+            expectedResult = 80;
+            actualResult = logTrans.ValueToLogGraph(false, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+        }
+
+        [TestMethod]
+        public void WhenMinMaxValue_ShouldReturnCount()
+        {
+            LogTransformation logTrans = new LogTransformation();
+            double Min = 0;
+            double Max = 0;
+            int ExpectedResult = 0;
+            int ActualResult = 0;
+
+            Min = 0;
+            Max = 1779;
+            ExpectedResult = 5;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = 0.1056422;
+            Max = 1.09837;
+            ExpectedResult = 3;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = 0;
+            Max = 154;
+            ExpectedResult = 4;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -100;
+            Max = -2;
+            ExpectedResult = 3;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -200;
+            Max = -1;
+            ExpectedResult = 4;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -1235;
+            Max = -5;
+            ExpectedResult = 5;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -1000;
+            Max = -5;
+            ExpectedResult = 4;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
         }
     }
 }

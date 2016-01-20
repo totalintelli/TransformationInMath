@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,6 +83,210 @@ namespace Transformation
             }
 
             return result;
+        }
+
+        public double ValueToLogGraph(bool isX, float Data, float Min, float Max)
+        {
+            double Pos = 0; // 그래프 상 위치
+            double Data_Log = 0; // 데이터를 로그로 변환한 값과 최소값을 로그로 변환한 값의 비율
+            double LogValue = 0; // 입력값을 로그로 변환한 값
+            double RealMinLogValue = 0; // 실제 최소 로그 값
+            double Rate_Log = 0; // 최대값의 로그 값과 최소값의 로그 값의 비율 
+            double LogBase = 10; // 로그의 밑
+            double GraphWidth = 349; // 그래프의 너비
+            double GraphHeight = 182; // 그래프의 높이
+            PointF GraphZeroPoint = new PointF(80, 262); // 그래프 원점의 좌표
+            int ZeroSpace = 20; // 값이 0인 경우 1을 넣을 공간
+            int RulerCount = 3;
+            double RealMinData_Plus = Math.Round((Max * Math.Pow(0.1, RulerCount)), 6); // 실제 +로그의 최소값
+
+            if (Min == 0 && Max > 0)
+            {
+                if(Min == 0)
+                {
+                    Min = 1;
+                }
+                LogValue = Math.Log(Data, LogBase);
+                Data_Log = LogValue;
+                RealMinLogValue = Math.Log(Math.Pow(Max, -3));
+                Rate_Log = Math.Ceiling(Math.Log(Max, LogBase));
+
+                if(isX)
+                {
+                    if(Data > 1)
+                    {
+                        Pos = Data_Log / Rate_Log * (GraphWidth - ZeroSpace) + GraphZeroPoint.X + ZeroSpace;
+                    }
+                    
+                    else
+                    {
+                        Pos = GraphZeroPoint.X + Data * ZeroSpace; 
+                    }
+                }
+                else
+                {
+                    if(Data == 1)
+                    {
+                        Pos = GraphZeroPoint.Y - ZeroSpace;
+                    }
+
+                    else if(Max == 1)
+                    {
+                        Pos = GraphZeroPoint.Y -  GraphHeight;
+                    }
+                    else if(Min < 1 && Max > 1)
+                    {
+                        Pos = GraphZeroPoint.Y - Data * ZeroSpace;
+                    }
+                    
+                    else 
+                    {
+                        Pos = GraphZeroPoint.Y - ZeroSpace - (((GraphHeight - ZeroSpace) * (Data_Log / Rate_Log)));
+                    }
+                }
+            }
+
+            if (Min > 0 && Max > 0)
+            {
+                LogValue = Math.Log(Data, LogBase);
+                Data_Log = LogValue;
+                RealMinLogValue = Math.Log(Math.Pow(Max, -3));
+                Rate_Log = Math.Ceiling(Math.Log(Max, LogBase));
+
+                if (isX)
+                {
+                    if (Data > 1)
+                    {
+                        Pos = Data_Log / Rate_Log * (GraphWidth - ZeroSpace) + GraphZeroPoint.X + ZeroSpace;
+                    }
+
+                    else
+                    {
+                        Pos = GraphZeroPoint.X + Data * ZeroSpace;
+                    }
+                }
+                else
+                {
+                    if (Data == 1)
+                    {
+                        Pos = GraphZeroPoint.Y - ZeroSpace;
+                    }
+
+                    else if (Max == 1)
+                    {
+                        Pos = GraphZeroPoint.Y - GraphHeight;
+                    }
+                    else if (Min < 1 && Max > 1)
+                    {
+                        if(Data > Min && Data < Max)
+                        {
+                            Pos = GraphZeroPoint.Y - Data * ZeroSpace;
+                        }
+                        else
+                        {
+                            Pos = GraphZeroPoint.Y - ZeroSpace - (GraphHeight - ZeroSpace) * Data_Log / Rate_Log;
+                        }
+                    }
+
+                    else if (Min > 1 && Max > 1)
+                    {
+                        Pos = GraphZeroPoint.Y - ZeroSpace - (((GraphHeight - ZeroSpace) * (Data_Log / Rate_Log)));
+                    }
+                }
+            }
+
+            if(Min < 0 && Max < 0)
+            {
+                if(isX)
+                {
+
+                }
+                else
+                {
+                    if((Data == Min))
+                    {
+                        Pos = GraphZeroPoint.Y;
+                    }
+                    else if (Data == Max || (Data > Max))
+                    {
+                        Pos = GraphZeroPoint.Y - GraphHeight;
+                    }
+                    else
+                    {
+                        LogValue = Math.Log(Math.Abs(Data), LogBase);
+                        Data_Log = LogValue;
+                        Rate_Log = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
+                        Pos = GraphZeroPoint.Y - GraphHeight * Data_Log / Rate_Log;
+                    }
+                }
+               
+            }
+
+            return Pos;
+        }
+
+        public int GetCount(double Min, double Max)
+        {
+            int count = 0; // 눈금의 개수
+            double MinLogVal = 0; // 최소값의 로그값
+            double MaxLogVal = 0; // 최대값의 로그값
+            double LogBase = 10;
+
+            if (Min == 0 && Max > 0)
+            {
+                // 최소값의 로그값을 구한다.
+                if (Min >= 1)
+                {
+                    MinLogVal = Math.Floor(Math.Log(Math.Abs(Min), LogBase));
+                }
+
+                // 최대값의 로그값을 구한다.
+                if (Max >= 1)
+                {
+                    MaxLogVal = Math.Ceiling(Math.Log(Math.Abs(Max), LogBase));
+                }
+
+                // 눈금의 개수를 구한다.
+                count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
+
+            }
+
+            else if(Min > 0 && Max > 0)
+            {
+                // 최대값의 로그값을 구한다.
+                MaxLogVal = Math.Ceiling(Math.Abs(Math.Log(Min, LogBase)));
+
+                // 최소값의 로그값을 구한다.
+                if (Max < 1)
+                {
+                    MinLogVal = Math.Floor(Math.Abs(Math.Log(Max, LogBase)));
+                }
+
+                if(Max > 1)
+                {
+                    // 눈금의 개수를 구한다.
+                    count = Convert.ToInt16(MaxLogVal - MinLogVal) + 2;
+                }
+                else
+                {
+                    // 눈금의 개수를 구한다.
+                    count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
+                }
+            }
+
+            else if(Min < 0 && Max < 0)
+            {
+                // 최대값의 로그값을 구한다.
+                MaxLogVal = Math.Floor(Math.Log(Math.Abs(Max), LogBase));
+
+                // 최소값의 로그값을 구한다. 
+                MinLogVal = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
+
+                // 눈금의 개수를 구한다.
+                count = Convert.ToInt16(MinLogVal - MaxLogVal) + 1;
+            }
+
+            return count;
         }
     }
 }
