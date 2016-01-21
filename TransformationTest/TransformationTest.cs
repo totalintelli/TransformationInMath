@@ -486,26 +486,41 @@ namespace TransformationTest
 
         /*
         함수 이름 : WhenPositiveLogValue_ShouldReturnPositiveValue
-        기    능 : 양의 로그 값을 입력받으면 양의 실수를 올바르게 출력하는지 테스트한다.
+        기    능 : 양의 마우스 좌표 값을 입력받으면 양의 실수를 올바르게 출력하는지 테스트한다.
         입    력 : 없음
         출    력 : 없음
         */
-        #region 양의 로그 값을 입력받으면 양의 실수를 올바르게 출력하는지 테스트
+        #region 양의 마우스 좌표 값을 입력받으면 양의 실수를 올바르게 출력하는지 테스트
         [TestMethod]
         public void WhenPositiveLogValue_ShouldReturnPositiveValue()
         {
-            double Value = 0;
+            double PointValue = 0;
             float Min = 0;
             float Max = 0;
             double ExpectedResult = 0;
             double ActualResult = 0;
+            bool isX = true;
             LogTransformation logTrans = new LogTransformation();
 
             Min = 0;
             Max = 43.78f;
-            Value = 0;
+            PointValue = 80;
             ExpectedResult = 0;
-            ActualResult = logTrans.LogGraphToValue(Value, Min, Max);
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = 0;
+            Max = 43.78f;
+            PointValue = 196.333;
+            ExpectedResult = 1;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = 0;
+            Max = 43.78f;
+            PointValue = 429;
+            ExpectedResult = 100;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
             Assert.AreEqual(ExpectedResult, ActualResult);
         }
         #endregion
