@@ -6,6 +6,14 @@ namespace TransformationTest
     [TestClass]
     public class TransformationTest
     {
+
+        /*
+        함수 이름 : WhenPositiveNumber_ShouldReturnValue
+        기    능 : 입력한 값이 양수인 경우 양수 로그 값으로 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 입력한 값이 양수인 경우 양수 로그 값으로 출력하는지 테스트
         [TestMethod]
         public void WhenPositiveNumber_ShouldReturnValue()
         {
@@ -39,9 +47,17 @@ namespace TransformationTest
             actualResult = logTrans.NumToLog(input, min, max);
             Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
         }
+        #endregion
 
 
 
+        /*
+        함수 이름 : WhenMiniPositiveNumber_ShouldReturnMinusNumber
+        기    능 : 입력한 값이 0과 1사이의 수인 경우 음수 로그 값으로 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 입력한 값이 0과 1사이의 수인 경우 음수 로그 값으로 출력하는지 테스트
         [TestMethod]
         public void WhenMiniPositiveNumber_ShouldReturnMinusNumber()
         {
@@ -53,9 +69,17 @@ namespace TransformationTest
             float actualResult = logTrans.NumToLog(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
         }
+        #endregion
 
 
 
+        /*
+        함수 이름 : WhenNegativeNumber_ShouldReturnMinusNumber
+        기    능 : 입력한 값이 음수인 경우 음수 로그 값으로 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 입력한 값이 음수인 경우 음수 로그 값으로 출력하는지 테스트
         [TestMethod]
         public void WhenNegativeNumber_ShouldReturnMinusNumber()
         {
@@ -74,8 +98,17 @@ namespace TransformationTest
             actualResult = logTrans.NumToLog(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
         }
+        #endregion
 
 
+
+        /*
+        함수 이름 : WhenZero_ShouldReturnNaN
+        기    능 : 입력한 값이 0인 경우 로그 값으로 나타낼 수 없다고 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        # region 입력한 값이 0인 경우 로그 값으로 나타낼 수 없다고 출력하는지 테스트
         [TestMethod]
         public void WhenZero_ShouldReturnNaN()
         {
@@ -87,9 +120,17 @@ namespace TransformationTest
             float actualResult = logTrans.NumToLog(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
         }
+        #endregion
 
 
 
+        /*
+        함수 이름 : WhenOutOfRangeNumber_ShouldReturnNaN
+        기    능 : 입력한 실수 값이 범위에서 벗어났을 경우 로그 값으로 나타낼 수 없다고 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 입력한 실수 값이 범위에서 벗어났을 경우 로그 값으로 나타낼 수 없다고 출력하는지 테스트
         [TestMethod]
         public void WhenOutOfRangeNumber_ShouldReturnNaN()
         {
@@ -101,9 +142,17 @@ namespace TransformationTest
             float actualResult = logTrans.NumToLog(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
         }
+        #endregion
 
 
 
+        /*
+        함수 이름 : WhenPositiveLogVaule_ShouldReturnMinusValue
+        기    능 : 양수 로그 값이 입력될 경우 로그 값에 해당하는 실수 값을 올바르게 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 양수 로그 값이 입력될 경우 로그 값에 해당하는 실수 값을 올바르게 출력하는지 테스트
         [TestMethod]
         public void WhenPositiveLogVaule_ShouldReturnValue()
         {
@@ -122,9 +171,17 @@ namespace TransformationTest
             actualResult = logTrans.LogToNum(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
         }
+        #endregion
 
 
 
+        /*
+        함수 이름 : WhenNegativeLogValue_ShouldReturnMinusValue
+        기    능 : 음수 로그 값이 입력될 경우 로그 값에 해당하는 실수 값을 올바르게 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 음수 로그 값이 입력될 경우 로그 값에 해당하는 실수 값을 올바르게 출력하는지 테스트
         [TestMethod]
         public void WhenNegativeLogValue_ShouldReturnMinusValue()
         {
@@ -149,9 +206,18 @@ namespace TransformationTest
             max = 2990;
             actualResult = logTrans.LogToNum(input, min, max);
             Assert.AreEqual(expectedResult, actualResult);
-
         }
+        #endregion
 
+
+
+        /*
+        함수 이름 : WhenPositiveValue_ShouldReturnPositivePointValue
+        기    능 : 양수 데이터가 들어올 경우 그 데이터의 그래프 상의 위치를 올바르게 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 양수 데이터가 들어올 경우 그 데이터의 그래프 상의 위치를 올바르게 출력하는지 테스트
         [TestMethod]
         public void WhenPositiveValue_ShouldReturnPositivePointValue()
         {
@@ -244,7 +310,17 @@ namespace TransformationTest
             actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
             Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
         }
+        #endregion
 
+
+
+        /*
+        함수 이름 : WhenNegativeValue_ShouldReturnPositivePointValue
+        기    능 : 음수 데이터가 들어올 경우 그 데이터의 그래프 상의 위치를 올바르게 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 음수 데이터가 들어올 경우 그 데이터의 그래프 상의 위치를 올바르게 출력하는지 테스트
         [TestMethod]
         public void WhenNegativeValue_ShouldReturnPositivePointValue()
         {
@@ -311,7 +387,17 @@ namespace TransformationTest
             actualResult = logTrans.ValueToLogGraph(true, Data, Min, Max);
             Assert.AreEqual(expectedResult, actualResult);
         }
+        #endregion
 
+
+
+        /*
+        함수 이름 : WhenMinMaxValue_ShouldReturnCount
+        기    능 : 최대값과 최소값을 입력받을 경우 눈금의 개수를 올바르게 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 최대값과 최소값을 입력받을 경우 눈금의 개수를 올바르게 출력하는지 테스트
         [TestMethod]
         public void WhenMinMaxValue_ShouldReturnCount()
         {
@@ -382,5 +468,6 @@ namespace TransformationTest
             ActualResult = logTrans.GetCount(Min, Max);
             Assert.AreEqual(ExpectedResult, ActualResult);
         }
+        #endregion
     }
 }
