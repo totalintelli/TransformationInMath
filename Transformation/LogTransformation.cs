@@ -40,12 +40,12 @@ namespace Transformation
             {
                 result = Convert.ToSingle(Math.Log10(Math.Abs(input)) * (-1));
             }
-            
+
             // 무한대 값 처리
-            if(float.IsInfinity(result))
+            if (float.IsInfinity(result))
             {
                 result = float.NaN;
-            }           
+            }
 
             return result;
         }
@@ -66,17 +66,17 @@ namespace Transformation
         {
             float result = float.NaN;
 
-            if(input > 0)
+            if (input > 0)
             {
                 result = Convert.ToSingle(Math.Pow(10, input));
             }
             else
             {
-                if(input > max || input > min)
+                if (input > max || input > min)
                 {
                     result = Convert.ToSingle(Math.Pow(10, Math.Abs(input))) * (-1);
                 }
-                else if(input < min || input < max)
+                else if (input < min || input < max)
                 {
                     result = Convert.ToSingle(Math.Pow(10, input));
                 }
@@ -102,7 +102,7 @@ namespace Transformation
 
             if (Min == 0 && Max > 0)
             {
-                if(Min == 0)
+                if (Min == 0)
                 {
                     Min = 1;
                 }
@@ -111,35 +111,35 @@ namespace Transformation
                 RealMinLogValue = Math.Log(Math.Pow(Max, -3));
                 Rate_Log = Math.Ceiling(Math.Log(Max, LogBase));
 
-                if(isX)
+                if (isX)
                 {
-                    if(Data > 1)
+                    if (Data > 1)
                     {
                         Pos = Data_Log / Rate_Log * (GraphWidth - ZeroSpace) + GraphZeroPoint.X + ZeroSpace;
                     }
-                    
+
                     else
                     {
-                        Pos = GraphZeroPoint.X + Data * ZeroSpace; 
+                        Pos = GraphZeroPoint.X + Data * ZeroSpace;
                     }
                 }
                 else
                 {
-                    if(Data == 1)
+                    if (Data == 1)
                     {
                         Pos = GraphZeroPoint.Y - ZeroSpace;
                     }
 
-                    else if(Max == 1)
+                    else if (Max == 1)
                     {
-                        Pos = GraphZeroPoint.Y -  GraphHeight;
+                        Pos = GraphZeroPoint.Y - GraphHeight;
                     }
-                    else if(Min < 1 && Max > 1)
+                    else if (Min < 1 && Max > 1)
                     {
                         Pos = GraphZeroPoint.Y - Data * ZeroSpace;
                     }
-                    
-                    else 
+
+                    else
                     {
                         Pos = GraphZeroPoint.Y - ZeroSpace - (((GraphHeight - ZeroSpace) * (Data_Log / Rate_Log)));
                     }
@@ -183,7 +183,7 @@ namespace Transformation
                     }
                     else if (Min < 1 && Max > 1)
                     {
-                        if(Data > Min && Data < Max)
+                        if (Data > Min && Data < Max)
                         {
                             Pos = GraphZeroPoint.Y - Data * ZeroSpace;
                         }
@@ -200,19 +200,19 @@ namespace Transformation
                 }
             }
 
-            if(Min < 0 && Max < 0)
+            if (Min < 0 && Max < 0)
             {
-                if(isX)
+                if (isX)
                 {
-                    if(Data > Max)
+                    if (Data > Max)
                     {
                         Pos = GraphZeroPoint.X + GraphWidth;
                     }
-                    
+
                 }
                 else
                 {
-                    if((Data == Min))
+                    if ((Data == Min))
                     {
                         Pos = GraphZeroPoint.Y;
                     }
@@ -228,18 +228,18 @@ namespace Transformation
                         Pos = GraphZeroPoint.Y - GraphHeight * Data_Log / Rate_Log;
                     }
                 }
-               
+
             }
 
-            if(Min < 0 && Max > 0)
+            if (Min < 0 && Max > 0)
             {
-                if(isX)
+                if (isX)
                 {
-                    Rate_Log = Math.Ceiling(Math.Log(Math.Abs(Max), LogBase)) 
+                    Rate_Log = Math.Ceiling(Math.Log(Math.Abs(Max), LogBase))
                         + Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
                     Data_Log = Math.Log(Math.Abs(Data), LogBase) + Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
 
-                    if(Data > 0 && Data < Max)
+                    if (Data > 0 && Data < Max)
                     {
                         Pos = GraphZeroPoint.X + GraphWidth * ((Data_Log + 1) / (Rate_Log + 1));
                     }
@@ -254,7 +254,7 @@ namespace Transformation
                         Pos = GraphZeroPoint.X + GraphWidth;
                     }
                 }
-               
+
             }
 
             return Pos;
@@ -286,7 +286,7 @@ namespace Transformation
 
             }
 
-            else if(Min > 0 && Max > 0)
+            else if (Min > 0 && Max > 0)
             {
                 // 최대값의 로그값을 구한다.
                 MaxLogVal = Math.Ceiling(Math.Abs(Math.Log(Max, LogBase)));
@@ -299,21 +299,21 @@ namespace Transformation
                     // 눈금의 개수를 구한다.
                     Count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
                 }
-                else if(Min > 0 && Min < 1)
+                else if (Min > 0 && Min < 1)
                 {
                     // 최대값의 로그값을 구한다.
                     MaxLogVal = Math.Ceiling(Math.Abs(Math.Log(Min, LogBase)));
-                    
+
                     // 최소값의 로그값을 구한다.
                     MinLogVal = Math.Floor(Math.Abs(Math.Log(Max, LogBase)));
 
                     // 눈금의 개수를 구한다.
                     Count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
                 }
-                
+
             }
 
-            else if(Min < 0 && Max < 0)
+            else if (Min < 0 && Max < 0)
             {
                 // 최대값의 로그값을 구한다.
                 MaxLogVal = Math.Floor(Math.Log(Math.Abs(Max), LogBase));
@@ -325,7 +325,7 @@ namespace Transformation
                 Count = Convert.ToInt16(MinLogVal - MaxLogVal) + 1;
             }
 
-            else if ( Min < 0 && Max > 0)
+            else if (Min < 0 && Max > 0)
             {
                 // 최대값의 로그값을 구한다.
                 MaxLogVal = Math.Ceiling(Math.Log(Math.Abs(Max), LogBase));
@@ -356,7 +356,7 @@ namespace Transformation
             int i = 0; // 반복제어변수
             int j = 0;
 
-            if(isX)
+            if (isX)
             {
                 if (Min >= 0 && Max > 0)
                 {
@@ -393,7 +393,7 @@ namespace Transformation
                     }
                 }
             }
-            
+
             return Value;
         }
     }
