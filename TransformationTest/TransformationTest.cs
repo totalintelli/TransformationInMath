@@ -340,6 +340,20 @@ namespace TransformationTest
 
             Min = -100;
             Max = -2;
+            Data = -1;
+            expectedResult = 80;
+            actualResult = logTrans.ValueToLogGraph(false, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            Min = -100;
+            Max = -2;
+            Data = -10;
+            expectedResult = 171;
+            actualResult = logTrans.ValueToLogGraph(false, Data, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult);
+
+            Min = -100;
+            Max = -2;
             Data = -10;
             expectedResult = 171;
             actualResult = logTrans.ValueToLogGraph(false, Data, Min, Max);
