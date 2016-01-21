@@ -467,6 +467,12 @@ namespace TransformationTest
             ExpectedResult = 2;
             ActualResult = logTrans.GetCount(Min, Max);
             Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = 1;
+            Max = 99;
+            ExpectedResult = 3;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
         }
         #endregion
     }
