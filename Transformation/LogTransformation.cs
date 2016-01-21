@@ -160,6 +160,11 @@ namespace Transformation
                         Pos = Data_Log / Rate_Log * (GraphWidth - ZeroSpace) + GraphZeroPoint.X + ZeroSpace;
                     }
 
+                    else if (Max < 1)
+                    {
+                        Pos = 80;
+                    }
+
                     else
                     {
                         Pos = GraphZeroPoint.X + Data * ZeroSpace;
@@ -333,6 +338,11 @@ namespace Transformation
             }
 
             return Count;
+        }
+
+        public double LogGraphToValue(double value, float min, float max)
+        {
+            return 0;
         }
     }
 }
