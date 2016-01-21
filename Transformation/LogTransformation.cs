@@ -340,9 +340,39 @@ namespace Transformation
             return Count;
         }
 
-        public double LogGraphToValue(double value, float min, float max)
+        public double LogGraphToValue(bool isX, double PointValue, float Min, float Max)
         {
-            return 0;
+            double Value = double.NaN; // 로그 값을 상수로 변환한 값
+            double GraphWidth = 349; // 그래프의 너비
+            double GraphHeight = 182; // 그래프의 높이
+            PointF GraphZeroPoint = new PointF(80, 262); // 그래프 원점의 좌표
+            double LogBase = 10; // 로그의 밑
+            double power = 0; // 지수
+            double MinLogValue = 0; // 최소값의 로그값
+            double MaxLogValue = 0; // 최대값의 로그값
+
+
+            if(isX)
+            {
+                if (Min >= 0 && Max > 0)
+                {
+                    // 최대값의 로그값을 구한다.
+                    MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase));
+                    // 지수를 구한다.
+                    power = MaxLogValue * ((PointValue - GraphZeroPoint.X) / GraphWidth);
+
+                    if (PointValue == GraphZeroPoint.X)
+                    {
+                        Value = 0;
+                    }
+                    else
+                    {
+                        Value = Math.Pow(LogBase, power);
+                    }
+                }
+            }
+            
+            return Value;
         }
     }
 }
