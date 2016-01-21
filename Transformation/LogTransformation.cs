@@ -393,6 +393,43 @@ namespace Transformation
                     }
                 }
             }
+            else
+            {
+                if (Min >= 0 && Max > 0)
+                {
+                    Value = 0;
+
+                    MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase));
+
+                    RulerCount = MaxLogValue + 1;
+
+                    CurrentPoint = GraphZeroPoint.Y; // y축 원점의 좌표
+
+                    if (PointValue != GraphZeroPoint.Y)
+                    {
+                        // 눈금의 숫자값 초기화
+                        Value = 1;
+
+                        while (CurrentPoint > PointValue)
+                        {
+                            Gap = Math.Pow(LogBase, i + 1) - Math.Pow(LogBase, i);
+
+                            j = 0;
+
+                            while (j < Gap)
+                            {
+                                CurrentPoint -= (GraphWidth / RulerCount) / Gap;
+
+                                Value += 1;
+
+                                j++;
+                            }
+
+                            i++;
+                        }
+                    }
+                }
+            }
 
             return Value;
         }
