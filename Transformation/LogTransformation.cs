@@ -350,24 +350,46 @@ namespace Transformation
             double power = 0; // 지수
             double MinLogValue = 0; // 최소값의 로그값
             double MaxLogValue = 0; // 최대값의 로그값
-
+            double CurrentPoint = 0; // 현재까지 이동한 좌표
+            double RulerCount = 0; // 눈금의 개수
+            double Gap = 0; // 눈금의 숫자 간격
+            int i = 0; // 반복제어변수
+            int j = 0;
 
             if(isX)
             {
                 if (Min >= 0 && Max > 0)
                 {
-                    // 최대값의 로그값을 구한다.
-                    MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase));
-                    // 지수를 구한다.
-                    power = MaxLogValue * ((PointValue - GraphZeroPoint.X) / GraphWidth);
+                    Value = 0;
 
-                    if (PointValue == GraphZeroPoint.X)
+                    MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase));
+
+                    RulerCount = MaxLogValue + 1;
+
+                    CurrentPoint = 80 + GraphWidth / RulerCount; // x축 원점의 좌표
+
+                    if (PointValue != GraphZeroPoint.X)
                     {
-                        Value = 0;
-                    }
-                    else
-                    {
-                        Value = Math.Pow(LogBase, power);
+                        // 눈금의 숫자값 초기화
+                        Value = 1;
+
+                        while (CurrentPoint < PointValue)
+                        {
+                            Gap = Math.Pow(LogBase, i + 1) - Math.Pow(LogBase, i);
+
+                            j = 0;
+
+                            while (j < Gap)
+                            {
+                                CurrentPoint += (GraphWidth / RulerCount) / Gap;
+
+                                Value += 1;
+
+                                j++;
+                            }
+
+                            i++;
+                        }
                     }
                 }
             }
