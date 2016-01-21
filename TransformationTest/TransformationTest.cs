@@ -309,6 +309,14 @@ namespace TransformationTest
             expectedResult = 242;
             actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
             Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
+
+            Min = 0.00585543f;
+            Max = 0.9957746f;
+            Value = 0.001f;
+            isX = true;
+            expectedResult = 80;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
         }
         #endregion
 
@@ -472,6 +480,32 @@ namespace TransformationTest
             Max = 99;
             ExpectedResult = 3;
             ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+        }
+        #endregion
+
+        /*
+        함수 이름 : WhenPositiveLogValue_ShouldReturnPositiveValue
+        기    능 : 양의 로그 값을 입력받으면 양의 실수를 올바르게 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 양의 로그 값을 입력받으면 양의 실수를 올바르게 출력하는지 테스트
+        [TestMethod]
+        public void WhenPositiveLogValue_ShouldReturnPositiveValue()
+        {
+            double Value = 0;
+            float Min = 0;
+            float Max = 0;
+            double ExpectedResult = 0;
+            double ActualResult = 0;
+            LogTransformation logTrans = new LogTransformation();
+
+            Min = 0;
+            Max = 43.78f;
+            Value = 0;
+            ExpectedResult = 0;
+            ActualResult = logTrans.LogGraphToValue(Value, Min, Max);
             Assert.AreEqual(ExpectedResult, ActualResult);
         }
         #endregion
