@@ -235,6 +235,14 @@ namespace TransformationTest
             expectedResult = 80;
             actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
             Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
+
+            Min = 0.1030832976102829f;
+            Max = 1.0994292497634888f;
+            Value = 1;
+            isX = false;
+            expectedResult = 242;
+            actualResult = logTrans.ValueToLogGraph(isX, Value, Min, Max);
+            Assert.AreEqual(expectedResult, actualResult, delta: actualResult / 1000000);
         }
 
         [TestMethod]
@@ -321,7 +329,7 @@ namespace TransformationTest
 
             Min = 0.1056422;
             Max = 1.09837;
-            ExpectedResult = 3;
+            ExpectedResult = 2;
             ActualResult = logTrans.GetCount(Min, Max);
             Assert.AreEqual(ExpectedResult, ActualResult);
 
@@ -367,6 +375,12 @@ namespace TransformationTest
             ActualResult = logTrans.GetCount(Min, Max);
             Assert.AreEqual(ExpectedResult, ActualResult);
 
+
+            Min = 0.1030832976102829f;
+            Max = 1.0994292497634888f;
+            ExpectedResult = 2;
+            ActualResult = logTrans.GetCount(Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
         }
     }
 }
