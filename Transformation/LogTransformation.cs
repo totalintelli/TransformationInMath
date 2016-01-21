@@ -354,7 +354,7 @@ namespace Transformation
             double RulerCount = 0; // 눈금의 개수
             double Gap = 0; // 눈금의 숫자 간격
             int i = 0; // 반복제어변수
-            int j = 0;
+            int j = 0; // 반복제어변수
 
             if (isX)
             {
