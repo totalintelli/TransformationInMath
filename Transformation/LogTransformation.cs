@@ -366,7 +366,7 @@ namespace Transformation
 
                     RulerCount = MaxLogValue + 1;
 
-                    CurrentPoint = 80 + GraphWidth / RulerCount; // x축 원점의 좌표
+                    CurrentPoint = 80 + GraphWidth / RulerCount; // x축에 있는 눈금 1의 좌표
 
                     if (PointValue != GraphZeroPoint.X)
                     {
@@ -403,7 +403,7 @@ namespace Transformation
 
                     RulerCount = MaxLogValue + 1;
 
-                    CurrentPoint = GraphZeroPoint.Y; // y축 원점의 좌표
+                    CurrentPoint = GraphZeroPoint.Y - GraphHeight / RulerCount; // y축에 있는 눈금 1의 좌표
 
                     if (PointValue != GraphZeroPoint.Y)
                     {
@@ -418,7 +418,7 @@ namespace Transformation
 
                             while (j < Gap)
                             {
-                                CurrentPoint -= (GraphWidth / RulerCount) / Gap;
+                                CurrentPoint -= (GraphHeight / RulerCount) / Gap;
 
                                 Value += 1;
 
