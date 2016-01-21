@@ -283,19 +283,21 @@ namespace Transformation
 
             else if(Min > 0 && Max > 0)
             {
-                // 최대값의 로그값을 구한다.
-                MaxLogVal = Math.Ceiling(Math.Abs(Math.Log(Min, LogBase)));
-
-                // 최소값의 로그값을 구한다.
-                if (Max < 1)
-                {
-                    MinLogVal = Math.Floor(Math.Abs(Math.Log(Max, LogBase)));
-                }
-
                 if(Max > 1)
                 {
                     // 눈금의 개수를 구한다.
                     Count = Convert.ToInt16(MaxLogVal - MinLogVal) + 2;
+                }
+                else if(Min > 0 && Min < 1)
+                {
+                    // 최대값의 로그값을 구한다.
+                    MaxLogVal = Math.Ceiling(Math.Abs(Math.Log(Min, LogBase)));
+                    
+                    // 최소값의 로그값을 구한다.
+                    MinLogVal = Math.Floor(Math.Abs(Math.Log(Max, LogBase)));
+
+                    // 눈금의 개수를 구한다.
+                    Count = Convert.ToInt16(MaxLogVal - MinLogVal) + 1;
                 }
                 else
                 {
