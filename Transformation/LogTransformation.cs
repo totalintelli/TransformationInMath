@@ -355,6 +355,7 @@ namespace Transformation
             double Gap = 0; // 눈금의 숫자 간격
             int i = 0; // 반복제어변수
             int j = 0; // 반복제어변수
+            int k = 0; // 반복제어변수
             double delta = 0; // 숫자 1에 해당하는 간격
 
             if (isX)
@@ -462,27 +463,53 @@ namespace Transformation
                     {
                         while (CurrentPoint < PointValue)
                         {
-                            Gap = Math.Pow(LogBase, MinLogValue - i) - Math.Pow(LogBase, MinLogValue - (i + 1));
-
-                            j = 0;
-
-                            delta = (GraphWidth / RulerCount) / (Gap - 1);
-
-                            while (j < Gap)
+                            if (Value < -1)
                             {
-                                CurrentPoint += delta;
+                                Gap = Math.Pow(LogBase, MinLogValue - i) - Math.Pow(LogBase, MinLogValue - (i + 1));
 
-                                Value += 1;
+                                j = 0;
 
-                                j++;
+                                delta = (GraphWidth / RulerCount) / (Gap - 1);
+
+                                while (j < Gap)
+                                {
+                                    CurrentPoint += delta;
+
+                                    Value += 1;
+
+                                    j++;
+                                }
+
+                                i++;
                             }
 
-                            i++;
+                            //if (Value >= 1)
+                            //{
+
+                            //    Gap = Math.Pow(LogBase, k + 1) - Math.Pow(LogBase, k);
+
+                            //    j = 0;
+
+                            //    delta = (GraphWidth / RulerCount) / (Gap - 1);
+
+                            //    while (j < Gap)
+                            //    {
+                            //        CurrentPoint += delta;
+
+                            //        Value += 1;
+
+                            //        j++;
+                            //    }
+
+                            //    k++;
+                            //}
+
+
                         }
                     }
                 }
             }
-                else
+            else
             {
                 if (Min >= 0 && Max > 0)
                 {
