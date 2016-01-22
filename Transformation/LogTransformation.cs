@@ -362,7 +362,14 @@ namespace Transformation
                 {
                     Value = 0;
 
-                    MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase));
+                    if (Min > 0)
+                    {
+                        MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase)) - Math.Floor(Math.Log(Min, LogBase));
+                    }
+                    else
+                    {
+                        MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase));
+                    }
 
                     RulerCount = MaxLogValue + 1;
 
@@ -392,6 +399,47 @@ namespace Transformation
                         }
                     }
                 }
+
+                else if (Min < 0 && Max < 0)
+                {
+
+                    if (Min < 0)
+                    {
+                        MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase)) 
+                            - Math.Floor(Math.Log(Math.Abs(Max), LogBase));
+                    }
+                    else
+                    {
+                        MaxLogValue = Math.Ceiling(Math.Log(Min, LogBase));
+                    }
+
+                    Value = Math.Pow(LogBase, MaxLogValue) * (-1);
+
+                    RulerCount = MaxLogValue + 1;
+
+                    CurrentPoint = 80 + GraphWidth / RulerCount; // x축에 있는 눈금 1의 좌표
+
+                    if (PointValue != GraphZeroPoint.X)
+                    {
+                        while (CurrentPoint < PointValue)
+                        {
+                            Gap = Math.Pow(LogBase, MaxLogValue - i) - Math.Pow(LogBase, MaxLogValue - (i + 1));
+
+                            j = 0;
+
+                            while (j < Gap)
+                            {
+                                CurrentPoint += (GraphWidth / RulerCount) / Gap;
+
+                                Value += 1;
+
+                                j++;
+                            }
+
+                            i++;
+                        }
+                    }
+                }
             }
             else
             {
@@ -399,7 +447,14 @@ namespace Transformation
                 {
                     Value = 0;
 
-                    MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase));
+                    if(Min > 0)
+                    {
+                        MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase)) - Math.Floor(Math.Log(Min,LogBase));
+                    }
+                    else
+                    {
+                        MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase));
+                    }
 
                     RulerCount = MaxLogValue + 1;
 
