@@ -673,5 +673,82 @@ namespace TransformationTest
             Assert.AreEqual(ExpectedResult, ActualResult);
         }
         #endregion
+
+        /*
+        함수 이름 : WhenPositiveLogValue_ShouldReturnPositveValueOrNagativeValue
+        기    능 : 양의 마우스 좌표 값을 입력받으면 양의 실수나 음의 실수를 올바르게 출력하는지 테스트한다.
+        입    력 : 없음
+        출    력 : 없음
+        */
+        #region 양의 마우스 좌표 값을 입력받으면 양의 실수나 음의 실수를 올바르게 출력하는지 테스트
+        [TestMethod]
+        public void WhenPositiveLogValue_ShouldReturnPositveValueOrNagativeValue()
+        {
+            LogTransformation logTrans = new LogTransformation();
+            float Min = 0;
+            float Max = 0;
+            double PointValue = 0;
+            bool isX;
+            double ExpectedResult = 0;
+            double ActualResult = 0;
+
+            Min = -1000;
+            Max = 2990;
+            PointValue = 80;
+            isX = true;
+            ExpectedResult = -1000;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -1000;
+            Max = 2990;
+            PointValue = 80;
+            isX = true;
+            ExpectedResult = -1000;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -1000;
+            Max = 2990;
+            PointValue = 123.625;
+            isX = true;
+            ExpectedResult = -100;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -1000;
+            Max = 2990;
+            PointValue = 167.25;
+            isX = true;
+            ExpectedResult = -10;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -1000;
+            Max = 2990;
+            PointValue = 210.875;
+            isX = true;
+            ExpectedResult = -1;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            //Min = -1000;
+            //Max = 2990;
+            //PointValue = 254.5;
+            //isX = true;
+            //ExpectedResult = 1;
+            //ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            //Assert.AreEqual(ExpectedResult, ActualResult);
+
+            //Min = -1000;
+            //Max = 2990;
+            //PointValue = 298.125;
+            //isX = true;
+            //ExpectedResult = 10;
+            //ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            //Assert.AreEqual(ExpectedResult, ActualResult);
+
+        }
+        #endregion
     }
 }
