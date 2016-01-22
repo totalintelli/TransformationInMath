@@ -400,17 +400,17 @@ namespace Transformation
                     }
                 }
 
-                else if (Min < 0 && Max < 0)
+                else if (Min < 0 && Max <= 0)
                 {
 
-                    if (Min < 0)
+                    if (Max < 0)
                     {
                         MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase)) 
                             - Math.Floor(Math.Log(Math.Abs(Max), LogBase));
                     }
                     else
                     {
-                        MaxLogValue = Math.Ceiling(Math.Log(Min, LogBase));
+                        MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
                     }
 
                     Value = Math.Pow(LogBase, MaxLogValue) * (-1);
@@ -468,6 +468,46 @@ namespace Transformation
                         while (CurrentPoint > PointValue)
                         {
                             Gap = Math.Pow(LogBase, i + 1) - Math.Pow(LogBase, i);
+
+                            j = 0;
+
+                            while (j < Gap)
+                            {
+                                CurrentPoint -= (GraphHeight / RulerCount) / Gap;
+
+                                Value += 1;
+
+                                j++;
+                            }
+
+                            i++;
+                        }
+                    }
+                }
+
+                else if (Min < 0 && Max <= 0)
+                {
+                    if (Max < 0)
+                    {
+                        MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase))
+                            - Math.Floor(Math.Log(Math.Abs(Max), LogBase));
+                    }
+                    else
+                    {
+                        MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
+                    }
+
+                    Value = Math.Pow(LogBase, MaxLogValue) * (-1);
+
+                    RulerCount = MaxLogValue + 1;
+
+                    CurrentPoint = GraphZeroPoint.Y - 1 - GraphHeight / RulerCount; // y축에 있는 눈금 1의 좌표
+
+                    if (PointValue != GraphZeroPoint.Y)
+                    {
+                        while (CurrentPoint > PointValue)
+                        {
+                            Gap = Math.Pow(LogBase, MaxLogValue - i) - Math.Pow(LogBase, MaxLogValue - (i + 1));
 
                             j = 0;
 
