@@ -353,10 +353,10 @@ namespace Transformation
             double CurrentPoint = 0; // 현재까지 이동한 좌표
             double RulerCount = 0; // 눈금의 개수
             double Gap = 0; // 눈금의 숫자 간격
+            double delta = 0; // 숫자 1에 해당하는 간격
             int i = 0; // 반복제어변수
             int j = 0; // 반복제어변수
             int k = 0; // 반복제어변수
-            double delta = 0; // 숫자 1에 해당하는 간격
 
             if (isX)
             {
