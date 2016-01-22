@@ -408,7 +408,7 @@ namespace Transformation
 
                     if (Max < 0)
                     {
-                        MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase)) 
+                        MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase))
                             - Math.Floor(Math.Log(Math.Abs(Max), LogBase));
                     }
                     else
@@ -448,56 +448,49 @@ namespace Transformation
 
                 else if (Min < 0 && Max > 0)
                 {
-                    
+
                     MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Max), LogBase));
-                    MinLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));    
+                    MinLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));
 
-                    if(PointValue == GraphZeroPoint.X)
+                    Value = Math.Pow(LogBase, MinLogValue) * (-1);
+
+                    RulerCount = MaxLogValue + MinLogValue + 1;
+
+                    CurrentPoint = GraphZeroPoint.X;
+
+                    if (PointValue != GraphZeroPoint.X)
                     {
-                        Value = Math.Pow(LogBase, MinLogValue) * (-1);
-                    }
-                    else
-                    {
-                        Value = Math.Pow(LogBase, MinLogValue) * (-1);
-
-                        RulerCount = MaxLogValue + MinLogValue + 1;
-
-                        CurrentPoint = GraphZeroPoint.X;
-
-                        if (PointValue != GraphZeroPoint.X)
+                        while (CurrentPoint < PointValue)
                         {
-                            while (CurrentPoint < PointValue)
+                            Gap = Math.Pow(LogBase, MinLogValue - i) - Math.Pow(LogBase, MinLogValue - (i + 1));
+
+                            j = 0;
+
+                            delta = (GraphWidth / RulerCount) / (Gap - 1);
+
+                            while (j < Gap)
                             {
-                                Gap = Math.Pow(LogBase, MinLogValue - i) - Math.Pow(LogBase, MinLogValue - (i + 1));
+                                CurrentPoint += delta;
 
-                                j = 0;
+                                Value += 1;
 
-                                delta = (GraphWidth / RulerCount) / (Gap - 1);
-
-                                while (j < Gap)
-                                {
-                                    CurrentPoint += delta;
-
-                                    Value += 1;
-
-                                    j++;
-                                }
-
-                                i++;
+                                j++;
                             }
+
+                            i++;
                         }
                     }
                 }
             }
-            else
+                else
             {
                 if (Min >= 0 && Max > 0)
                 {
                     Value = 0;
 
-                    if(Min > 0)
+                    if (Min > 0)
                     {
-                        MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase)) - Math.Floor(Math.Log(Min,LogBase));
+                        MaxLogValue = Math.Ceiling(Math.Log(Max, LogBase)) - Math.Floor(Math.Log(Min, LogBase));
                     }
                     else
                     {
