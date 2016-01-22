@@ -569,6 +569,46 @@ namespace TransformationTest
             isX = false;
             ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
             Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = 1;
+            Max = 154;
+            PointValue = 80;
+            ExpectedResult = 1000;
+            isX = false;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -200;
+            Max = -3;
+            PointValue = 80;
+            ExpectedResult = -1000;
+            isX = true;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -200;
+            Max = -3;
+            PointValue = 196.333;
+            ExpectedResult = -100;
+            isX = true;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -200;
+            Max = -3;
+            PointValue = 312.666;
+            ExpectedResult = -10;
+            isX = true;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
+
+            Min = -200;
+            Max = -3;
+            PointValue = 428.999;
+            ExpectedResult = -1;
+            isX = true;
+            ActualResult = logTrans.LogGraphToValue(isX, PointValue, Min, Max);
+            Assert.AreEqual(ExpectedResult, ActualResult);
         }
         #endregion
     }
