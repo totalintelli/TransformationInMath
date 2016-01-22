@@ -355,6 +355,7 @@ namespace Transformation
             double Gap = 0; // 눈금의 숫자 간격
             int i = 0; // 반복제어변수
             int j = 0; // 반복제어변수
+            double delta = 0; // 숫자 1에 해당하는 간격
 
             if (isX)
             {
@@ -373,7 +374,7 @@ namespace Transformation
 
                     RulerCount = MaxLogValue + 1;
 
-                    CurrentPoint = 80 + GraphWidth / RulerCount; // x축에 있는 눈금 1의 좌표
+                    CurrentPoint = GraphZeroPoint.X + GraphWidth / RulerCount; // x축에 있는 눈금 1의 좌표
 
                     if (PointValue != GraphZeroPoint.X)
                     {
@@ -386,9 +387,11 @@ namespace Transformation
 
                             j = 0;
 
+                            delta = (GraphWidth / RulerCount) / Gap;
+
                             while (j < Gap)
                             {
-                                CurrentPoint += (GraphWidth / RulerCount) / Gap;
+                                CurrentPoint += delta;
 
                                 Value += 1;
 
@@ -417,7 +420,7 @@ namespace Transformation
 
                     RulerCount = MaxLogValue + 1;
 
-                    CurrentPoint = 80 + GraphWidth / RulerCount; // x축에 있는 눈금 1의 좌표
+                    CurrentPoint = GraphZeroPoint.X + GraphWidth / RulerCount; // x축에 있는 눈금 1의 좌표
 
                     if (PointValue != GraphZeroPoint.X)
                     {
@@ -427,9 +430,11 @@ namespace Transformation
 
                             j = 0;
 
+                            delta = (GraphWidth / RulerCount) / Gap;
+
                             while (j < Gap)
                             {
-                                CurrentPoint += (GraphWidth / RulerCount) / Gap;
+                                CurrentPoint += delta;
 
                                 Value += 1;
 
@@ -437,6 +442,49 @@ namespace Transformation
                             }
 
                             i++;
+                        }
+                    }
+                }
+
+                else if (Min < 0 && Max > 0)
+                {
+                    
+                    MaxLogValue = Math.Ceiling(Math.Log(Math.Abs(Max), LogBase));
+                    MinLogValue = Math.Ceiling(Math.Log(Math.Abs(Min), LogBase));    
+
+                    if(PointValue == GraphZeroPoint.X)
+                    {
+                        Value = Math.Pow(LogBase, MinLogValue) * (-1);
+                    }
+                    else
+                    {
+                        Value = Math.Pow(LogBase, MinLogValue) * (-1);
+
+                        RulerCount = MaxLogValue + MinLogValue + 1;
+
+                        CurrentPoint = GraphZeroPoint.X;
+
+                        if (PointValue != GraphZeroPoint.X)
+                        {
+                            while (CurrentPoint < PointValue)
+                            {
+                                Gap = Math.Pow(LogBase, MinLogValue - i) - Math.Pow(LogBase, MinLogValue - (i + 1));
+
+                                j = 0;
+
+                                delta = (GraphWidth / RulerCount) / (Gap - 1);
+
+                                while (j < Gap)
+                                {
+                                    CurrentPoint += delta;
+
+                                    Value += 1;
+
+                                    j++;
+                                }
+
+                                i++;
+                            }
                         }
                     }
                 }
@@ -471,9 +519,11 @@ namespace Transformation
 
                             j = 0;
 
+                            delta = (GraphHeight / RulerCount) / Gap;
+
                             while (j < Gap)
                             {
-                                CurrentPoint -= (GraphHeight / RulerCount) / Gap;
+                                CurrentPoint -= delta;
 
                                 Value += 1;
 
@@ -511,9 +561,11 @@ namespace Transformation
 
                             j = 0;
 
+                            delta = (GraphHeight / RulerCount) / Gap;
+
                             while (j < Gap)
                             {
-                                CurrentPoint -= (GraphHeight / RulerCount) / Gap;
+                                CurrentPoint -= delta;
 
                                 Value += 1;
 
